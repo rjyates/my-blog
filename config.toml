@@ -17,7 +17,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\
     url = "https://github.com/rjyates/my-blog"
 [[menu.main]]
     name = "Resume"
-    url = "/static/DASCresume.htm"
+    url = "http://statistical-methods.ddns.uark.edu/files/my-blog/static/DASCresume.pdf"
 
 
 [params]
