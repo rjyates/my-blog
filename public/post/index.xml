@@ -22,7 +22,15 @@
       <pubDate>Mon, 07 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/12/07/paswords/</guid>
-      <description>Passwords</description>
+      <description>THE DATA
+passwords &amp;lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv&#39;) passwords rank = popularity in their database of released passwords
+password = Actual text of the password
+category = What category does the password fall in to?
+value	=	Time to crack by online guessing
+time_unit = Time unit to match with value
+offline_crack_sec = Time to crack offline in seconds
+rank_alt = Rank 2
+strength = quality of password where 10 is highest, 1 is lowest, please note that these are relative to these generally bad passwords</description>
     </item>
     
   </channel>

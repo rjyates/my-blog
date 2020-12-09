@@ -2,7 +2,11 @@
 date: "2020-12-07"
 title: Paswords
 ---
-THE DATA
+**Dataset 1: Password Strength**
+For this project, I am looking at a dataset that analyzes different passwords and their strengths. I got this data from TidyTuesday on Github. The passwords are grouped into 10 different categories. The data looks at how long each password took to crack and the unit of time associated with it. The data also looks at how long each password took to crack offline in seconds. The authors of the data also included the rank of the popularity of each password in their database. I thought this was really interesting to see what kinds of passwords other people are using. 
+
+
+**THE DATA**
 ```{r}
 passwords <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv')
 passwords
@@ -26,7 +30,11 @@ strength = quality of password where 10 is highest, 1 is lowest, please note tha
 
 font_size = Used to create the graphic for KIB
 
-CATEGORY OF PASSWORD v.s. PASSWORD STRENGTH
+**CATEGORY OF PASSWORD v.s. PASSWORD STRENGTH**
+First, I wanted to look at how the category of password compared to the password strength. It is important for me to note that the password "strength" is relative and based off of the author's comparison and analysis of other "bad" passwords. It is a 1-10 scale with 10 being the highest and 1 being the lowest. Nonetheless, I thought it would be interesting to see how each category did in terms of password strength. To switch things up a little, I added all of the strengths together to see which one came out to be the highest. This could mean that they either did really well in terms of strength, or it could mean that lots of people used them. 
+
+QUESTION 1: Which category had the highest total strength?
+It is very obvious by looking at the graph below that the "name" category did the best. This could either mean that many people used that type of password, or it could mean that that type of password just scored very well on strength. 
 ```{r}
 
 df <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv'))
@@ -36,13 +44,31 @@ library(ggplot2)
 
 p<-ggplot(data=df, aes(x=category, y=strength)) +
   geom_bar(stat="identity")
+p
 p + coord_flip()
 
+```
+I wanted to see how my findings from the first question would change if I calculated the average of the strength for each 
+QUESTION 2: Which category had the best average strength?
+```{r}
+
+df <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv'))
+head(df)
+avg strength <- mean(strength)
+library(ggplot2)
+
+p<-ggplot(data=df, aes(x=category, y=avg_strength)) +
+  geom_bar(stat="identity")
 p
+p + coord_flip()
+
 ```
 
 
-PASSWORD STRENGTH v.s. HOW LONG IT TOOK TO CRACK OFFLINE IN SECONDS
+**PASSWORD STRENGTH v.s. HOW LONG IT TOOK TO CRACK OFFLINE IN SECONDS**
+I wanted to look at how the strength compared to how long it took them to crack the password offline. I kind of figured that the two would correlate, but I thought it might be interesting to see how it looked in graph form. 
+QUESTION 3: How does the strength correlate with the amount of time it took to crack the password offline?
+You can definitely see from the data that the stronger passwords took longer to crack. This is just what I thought I would see in the graph. 
 ```{r}
 df <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv'))
 head(df)
@@ -56,7 +82,8 @@ library(ggplot2)
 ```
 
 
-STRENGTH OF PASSWORD v.s. HOW LONG IT TOOK TO CRACK OFFLINE IN SECONDS
+**CATEGORY OF PASSWORD v.s. HOW LONG IT TOOK TO CRACK OFFLINE IN SECONDS**
+Here is another graph of how the strength compares to the amount of time it took them to crack the passwords. 
 ```{r}
 df <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv'))
 head(df)

@@ -22,7 +22,15 @@
       <pubDate>Mon, 07 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/12/07/paswords/</guid>
-      <description>Passwords</description>
+      <description>THE DATA
+passwords &amp;lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv&#39;) passwords rank = popularity in their database of released passwords
+password = Actual text of the password
+category = What category does the password fall in to?
+value	=	Time to crack by online guessing
+time_unit = Time unit to match with value
+offline_crack_sec = Time to crack offline in seconds
+rank_alt = Rank 2
+strength = quality of password where 10 is highest, 1 is lowest, please note that these are relative to these generally bad passwords</description>
     </item>
     
     <item>
@@ -31,7 +39,7 @@
       <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
       
       <guid>/about/</guid>
-      <description>My name is Regan Yates. I am a Data Science student in my third year of college. I am creating this blog as part of a final for my Programming Languages class. I am hoping to continue to update this blog with future projects as I continue my college career.</description>
+      <description>My name is Regan Yates. I am a Data Science student in my third year of college. I am creating this blog as part of a final for my Programming Languages class. I am hoping to continue to update this blog with future projects as I continue my college career. My concentration is in Social Data Analytics. I am also minoring in sociology. I have always thought that the way that people are and the reasons behind why they do what they do is so interesting.</description>
     </item>
     
   </channel>

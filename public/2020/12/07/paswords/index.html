@@ -22,6 +22,11 @@
 
 
 
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
 <link rel="stylesheet" href="/css/fonts.css" media="all">
 <link rel="stylesheet" href="/css/main.css" media="all">
 
@@ -67,8 +72,50 @@
     
 
     <div class="article-content">
-      <p><strong>Passwords</strong></p>
+      <p>THE DATA</p>
+<pre><code class="language-{r}" data-lang="{r}">passwords &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv')
+passwords
+</code></pre><p>rank = popularity in their database of released passwords</p>
+<p>password = Actual text of the password</p>
+<p>category = What category does the password fall in to?</p>
+<p>value	=	Time to crack by online guessing</p>
+<p>time_unit = Time unit to match with value</p>
+<p>offline_crack_sec = Time to crack offline in seconds</p>
+<p>rank_alt = Rank 2</p>
+<p>strength = quality of password where 10 is highest, 1 is lowest, please note that these are relative to these generally bad passwords</p>
+<p>font_size = Used to create the graphic for KIB</p>
+<p>CATEGORY OF PASSWORD v.s. PASSWORD STRENGTH</p>
+<pre><code class="language-{r}" data-lang="{r}">
+df &lt;- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv'))
+head(df)
 
+library(ggplot2)
+
+p&lt;-ggplot(data=df, aes(x=category, y=strength)) +
+  geom_bar(stat=&quot;identity&quot;)
+p + coord_flip()
+
+p
+</code></pre><p>PASSWORD STRENGTH v.s. HOW LONG IT TOOK TO CRACK OFFLINE IN SECONDS</p>
+<pre><code class="language-{r}" data-lang="{r}">df &lt;- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv'))
+head(df)
+
+library(ggplot2)
+
+ ggplot(data=df, aes(x=strength, y=offline_crack_sec, group=1)) +
+   geom_line()+
+   geom_point()
+
+</code></pre><p>STRENGTH OF PASSWORD v.s. HOW LONG IT TOOK TO CRACK OFFLINE IN SECONDS</p>
+<pre><code class="language-{r}" data-lang="{r}">df &lt;- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv'))
+head(df)
+
+library(ggplot2)
+
+p&lt;-ggplot(data=df, aes(x=category, y=offline_crack_sec)) +
+  geom_bar(stat=&quot;identity&quot;)
+p + coord_flip()
+</code></pre>
     </div>
   </article>
 
@@ -90,6 +137,18 @@
 
     </div>
     
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
 
     
 
