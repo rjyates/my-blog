@@ -22,15 +22,7 @@
       <pubDate>Mon, 07 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/12/07/paswords/</guid>
-      <description>THE DATA
-passwords &amp;lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv&#39;) passwords rank = popularity in their database of released passwords
-password = Actual text of the password
-category = What category does the password fall in to?
-value	=	Time to crack by online guessing
-time_unit = Time unit to match with value
-offline_crack_sec = Time to crack offline in seconds
-rank_alt = Rank 2
-strength = quality of password where 10 is highest, 1 is lowest, please note that these are relative to these generally bad passwords</description>
+      <description>Dataset 1: Password Strength For this project, I am looking at a dataset that analyzes different passwords and their strengths. I got this data from TidyTuesday on Github. The passwords are grouped into 10 different categories. The data looks at how long each password took to crack and the unit of time associated with it. The data also looks at how long each password took to crack offline in seconds. The authors of the data also included the rank of the popularity of each password in their database.</description>
     </item>
     
     <item>

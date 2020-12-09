@@ -50,7 +50,7 @@
     
     <li><a href="https://github.com/rjyates/my-blog">GitHub</a></li>
     
-    <li><a href="http://statistical-methods.ddns.uark.edu/files/my-blog/static/DASCresume.pdf">Resume</a></li>
+    <li><a href="/dascresume.pdf">Resume</a></li>
     
   </ul>
 </nav>
@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">1 min read</span>
+    <span class="article-duration">3 min read</span>
     
 
     <h1 class="article-title">Paswords</h1>
@@ -72,7 +72,9 @@
     
 
     <div class="article-content">
-      <p>THE DATA</p>
+      <p><strong>Dataset 1: Password Strength</strong>
+For this project, I am looking at a dataset that analyzes different passwords and their strengths. I got this data from TidyTuesday on Github. The passwords are grouped into 10 different categories. The data looks at how long each password took to crack and the unit of time associated with it. The data also looks at how long each password took to crack offline in seconds. The authors of the data also included the rank of the popularity of each password in their database. I thought this was really interesting to see what kinds of passwords other people are using.</p>
+<p><strong>THE DATA</strong></p>
 <pre><code class="language-{r}" data-lang="{r}">passwords &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv')
 passwords
 </code></pre><p>rank = popularity in their database of released passwords</p>
@@ -84,7 +86,10 @@ passwords
 <p>rank_alt = Rank 2</p>
 <p>strength = quality of password where 10 is highest, 1 is lowest, please note that these are relative to these generally bad passwords</p>
 <p>font_size = Used to create the graphic for KIB</p>
-<p>CATEGORY OF PASSWORD v.s. PASSWORD STRENGTH</p>
+<p><strong>CATEGORY OF PASSWORD v.s. PASSWORD STRENGTH</strong>
+First, I wanted to look at how the category of password compared to the password strength. It is important for me to note that the password &ldquo;strength&rdquo; is relative and based off of the author&rsquo;s comparison and analysis of other &ldquo;bad&rdquo; passwords. It is a 1-10 scale with 10 being the highest and 1 being the lowest. Nonetheless, I thought it would be interesting to see how each category did in terms of password strength. To switch things up a little, I added all of the strengths together to see which one came out to be the highest. This could mean that they either did really well in terms of strength, or it could mean that lots of people used them.</p>
+<p>QUESTION 1: Which category had the highest total strength?
+It is very obvious by looking at the graph below that the &ldquo;name&rdquo; category did the best. This could either mean that many people used that type of password, or it could mean that that type of password just scored very well on strength.</p>
 <pre><code class="language-{r}" data-lang="{r}">
 df &lt;- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv'))
 head(df)
@@ -93,10 +98,26 @@ library(ggplot2)
 
 p&lt;-ggplot(data=df, aes(x=category, y=strength)) +
   geom_bar(stat=&quot;identity&quot;)
+p
 p + coord_flip()
 
+</code></pre><p>I wanted to see how my findings from the first question would change if I calculated the average of the strength for each
+QUESTION 2: Which category had the best average strength?</p>
+<pre><code class="language-{r}" data-lang="{r}">
+df &lt;- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv'))
+head(df)
+avg strength &lt;- mean(strength)
+library(ggplot2)
+
+p&lt;-ggplot(data=df, aes(x=category, y=avg_strength)) +
+  geom_bar(stat=&quot;identity&quot;)
 p
-</code></pre><p>PASSWORD STRENGTH v.s. HOW LONG IT TOOK TO CRACK OFFLINE IN SECONDS</p>
+p + coord_flip()
+
+</code></pre><p><strong>PASSWORD STRENGTH v.s. HOW LONG IT TOOK TO CRACK OFFLINE IN SECONDS</strong>
+I wanted to look at how the strength compared to how long it took them to crack the password offline. I kind of figured that the two would correlate, but I thought it might be interesting to see how it looked in graph form.
+QUESTION 3: How does the strength correlate with the amount of time it took to crack the password offline?
+You can definitely see from the data that the stronger passwords took longer to crack. This is just what I thought I would see in the graph.</p>
 <pre><code class="language-{r}" data-lang="{r}">df &lt;- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv'))
 head(df)
 
@@ -106,7 +127,8 @@ library(ggplot2)
    geom_line()+
    geom_point()
 
-</code></pre><p>STRENGTH OF PASSWORD v.s. HOW LONG IT TOOK TO CRACK OFFLINE IN SECONDS</p>
+</code></pre><p><strong>CATEGORY OF PASSWORD v.s. HOW LONG IT TOOK TO CRACK OFFLINE IN SECONDS</strong>
+Here is another graph of how the strength compares to the amount of time it took them to crack the passwords.</p>
 <pre><code class="language-{r}" data-lang="{r}">df &lt;- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv'))
 head(df)
 
