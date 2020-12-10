@@ -8,12 +8,15 @@
     <language>en-us</language>
     <lastBuildDate>Mon, 07 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Broadway Musicals</title>
-      <link>/2020/12/07/broadway-musicals/</link>
+      <title>Carbon Footprint of Food Groups</title>
+      <link>/2020/12/07/carbon-footprint-of-food-groups/</link>
       <pubDate>Mon, 07 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/12/07/broadway-musicals/</guid>
-      <description>Broadway Musicals</description>
+      <guid>/2020/12/07/carbon-footprint-of-food-groups/</guid>
+      <description>DATASET 2: C02 EMISSION OF DIFFERENT FOOD TYPES
+For this project, I am looking at the carbon footprints of different categories of food. In this data set there are 11 different types of food looked at from 130 different countries. The rate of consumption by kg/person/year is also included in the data. The co2 emissions are measured in kg/person/year as well.
+DATA
+food_consumption &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv&amp;#39;) ## Parsed with column specification: ## cols( ## country = col_character(), ## food_category = col_character(), ## consumption = col_double(), ## co2_emmission = col_double() ## ) food_consumption ## # A tibble: 1,430 x 4 ## country food_category consumption co2_emmission ## &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; ## 1 Argentina Pork 10.</description>
     </item>
     
     <item>
@@ -22,7 +25,8 @@
       <pubDate>Mon, 07 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/12/07/paswords/</guid>
-      <description>Dataset 1: Password Strength For this project, I am looking at a dataset that analyzes different passwords and their strengths. I got this data from TidyTuesday on Github. The passwords are grouped into 10 different categories. The data looks at how long each password took to crack and the unit of time associated with it. The data also looks at how long each password took to crack offline in seconds.</description>
+      <description>Dataset 1: Password Strength
+For this project, I am looking at a dataset that analyzes different passwords and their strengths. I got this data from TidyTuesday on Github. The passwords are grouped into 10 different categories. The data looks at how long each password took to crack and the unit of time associated with it. The data also looks at how long each password took to crack offline in seconds.</description>
     </item>
     
     <item>
