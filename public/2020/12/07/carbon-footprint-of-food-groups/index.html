@@ -158,10 +158,9 @@ library(dplyr)</code></pre>
 
 p&lt;-ggplot(data=df, aes(x=food_category, y=consumption)) +
   geom_bar(stat=&quot;identity&quot;)
-p</code></pre>
+
+p + coord_flip()</code></pre>
 <p><img src="/post/food_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<pre class="r"><code>p + coord_flip()</code></pre>
-<p><img src="/post/food_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
 <p>QUESTION 3:How much co2 does each country create per year?</p>
 <p>COUNTRY v.s. CO2</p>
 <pre class="r"><code>dt &lt;- data.frame(readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv&#39;))</code></pre>

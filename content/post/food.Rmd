@@ -47,7 +47,7 @@ library(ggplot2)
 
 p<-ggplot(data=df, aes(x=food_category, y=consumption)) +
   geom_bar(stat="identity")
-p
+
 p + coord_flip()
 ```
 
