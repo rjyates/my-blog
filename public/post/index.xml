@@ -20,11 +20,11 @@ food_consumption &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubuserconten
     </item>
     
     <item>
-      <title>Paswords</title>
-      <link>/2020/12/07/paswords/</link>
+      <title>Passwords</title>
+      <link>/2020/12/07/passwords/</link>
       <pubDate>Mon, 07 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>/2020/12/07/paswords/</guid>
+      <guid>/2020/12/07/passwords/</guid>
       <description>Dataset 1: Password Strength
 For this project, I am looking at a dataset that analyzes different passwords and their strengths. I got this data from TidyTuesday on Github. The passwords are grouped into 10 different categories. The data looks at how long each password took to crack and the unit of time associated with it. The data also looks at how long each password took to crack offline in seconds.</description>
     </item>
