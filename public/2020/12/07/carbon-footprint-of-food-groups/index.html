@@ -77,8 +77,6 @@
 <script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 
-<pre class="r"><code>suppressMessages(library(ggplot2))
-suppressMessages(library(dplyr))</code></pre>
 <p><strong>DATASET 2: C02 EMISSION OF DIFFERENT FOOD TYPES</strong></p>
 <p>For this project, I am looking at the carbon footprints of different categories of food. In this data set there are 11 different types of food looked at from 130 different countries. The rate of consumption by kg/person/year is also included in the data. The co2 emissions are measured in kg/person/year as well.</p>
 <p>I have been passionate about the effects of the food industry for many years now. I was vegan for a year and I still continue to follow a plant-based diet. The meat and diary industries specifically create high amounts of greenhouse gases and contribute to our ever-growing pollution levels. The Earth is slowly heating up.</p>
@@ -114,7 +112,7 @@ suppressMessages(library(dplyr))</code></pre>
     geom_boxplot() +
     ggtitle(&quot;Carbon Footprint of Food Groups&quot;) +
     coord_flip()</code></pre>
-<p><img src="/post/food_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="/post/food_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 <div id="question-2-how-much-of-each-type-of-food-is-consumed-per-year" class="section level1">
 <h1>QUESTION 2: How much of each type of food is consumed per year?</h1>
@@ -142,7 +140,7 @@ suppressMessages(library(dplyr))</code></pre>
   geom_bar(stat=&quot;identity&quot;)
 
 p + coord_flip()</code></pre>
-<p><img src="/post/food_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="/post/food_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 <div id="question-3how-much-co2-does-the-u.s.-create-in-total-each-year-how-much-is-created-by-each-food-group" class="section level1">
 <h1>QUESTION 3:How much co2 does the U.S. create in total each year? How much is created by each food group?</h1>

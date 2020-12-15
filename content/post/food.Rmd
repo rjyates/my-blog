@@ -6,10 +6,6 @@ title: Carbon Footprint of Food Groups
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
-suppressMessages(library(ggplot2))
-suppressMessages(library(dplyr))
-```
 
 **DATASET 2: C02 EMISSION OF DIFFERENT FOOD TYPES**
 
