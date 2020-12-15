@@ -2,48 +2,60 @@
 date: "2020-12-07"
 title: Carbon Footprint of Food Groups 
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+suppressMessages(library(ggplot2))
+suppressMessages(library(dplyr))
+```
 
 **DATASET 2: C02 EMISSION OF DIFFERENT FOOD TYPES**
 
 For this project, I am looking at the carbon footprints of different categories of food. In this data set there are 11 different types of food looked at from 130 different countries. The rate of consumption by kg/person/year is also included in the data. The co2 emissions are measured in kg/person/year as well. 
 
+I have been passionate about the effects of the food industry for many years now. I was vegan for a year and I still continue to follow a plant-based diet. The meat and diary industries specifically create high amounts of greenhouse gases and contribute to our ever-growing pollution levels. The Earth is slowly heating up. 
+
+I have always heard that if everyone were to commit to having one plant-based meal every week we could make a significant dent in the damage we have already done. These gases contribute to many of our Earth's growing list of problems such as global warming. The price of efficiency in order to meet the food needs of the worlds population, and make it cheaper for producers is becoming borderline detrimental. In this project, I will be looking at data that shows just how much carbon dioxide is created by which food groups to back up my theory that eating a plant based diet is better for the environment. 
+
 **DATA**
 ```{r}
 food_consumption <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv')
-food_consumption
+```
+```{r}
+suppressMessages(library(ggplot2))
+suppressMessages(library(dplyr))
 ```
 
 **KEY**
 
 
-QUESTION 1: What is the average carbon dioxide emission for each food group? Which food groups were the highest?
+# QUESTION 1: What is the average carbon dioxide emission for each food group? Which food groups were the highest?
 
-I have always been told that animal products have the highest carbon footprint of anything that humans eat. The data below show this to be true. Beef had the highest carbon emission at almost 400 kg/person/year. Dairy products also had very high CO2 emissions at almost 200 kg/person/year.
+I have always been told that animal products have the highest carbon footprint of anything that humans eat. The data below show this to be true. Beef created the most co2 by far. Lamb and goat created high amounts of co2, and dairy products followed closely. Eggs and soybeans created the least amount of co2. Some animal products created relatively low amounts of co2. What I got from this, though, was that plants seem to be the better choice. This is because there would be a much lower average carbon footprint for plants if I were to divide all of the categories into animal and non-animal foods. 
 
 AVERAGE CO2 EMISSION v.s. FOOD CATEGORY
 ```{r}
 dt <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv'))
-library(ggplot2)
-library(dplyr)
+
 dt %>%
     group_by(food_category) %>%
-    summarize(mean_co2 = mean(co2_emmission)) %>%
-    ggplot(aes(x = food_category, y = mean_co2)) +
-    geom_point() +
-    ggtitle("Average Carbon Footprint of Food Groups") +
+    #summarize(mean_co2 = mean(co2_emmission)) %>%
+    ggplot(aes(x = food_category, y = co2_emmission)) +
+    geom_boxplot() +
+    ggtitle("Carbon Footprint of Food Groups") +
     coord_flip()
 ```
 
-QUESTION 2: How much of each type of food is consumed per year? 
+# QUESTION 2: How much of each type of food is consumed per year? 
 
-Dairy products were the most consumed food items. 
+Dairy products were the most consumed food items as you can see from the graph. Wheat products were the next most consumed food item. I was surprised to see that beef wasn't consumed at a much higher rate than most other foods. It was actually lower than many of the food groups. Soybeans were the least consumed item, which is interesting because they also create the least amount of co2. I forget that other countries don't eat as much beef and diary as we do in the U.S., so that is something to take into account. 
 
 FOOD CATEGORY v.s. CONSUMPTION
 ```{r}
 df <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv')
 head(df)
-
-library(ggplot2)
 
 p<-ggplot(data=df, aes(x=food_category, y=consumption)) +
   geom_bar(stat="identity")
@@ -51,26 +63,7 @@ p<-ggplot(data=df, aes(x=food_category, y=consumption)) +
 p + coord_flip()
 ```
 
-QUESTION 3:How much co2 does each country create per year?
-
-COUNTRY v.s. CO2
-```{r}
-dt <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv'))
-library(ggplot2)
-
-dt %>%
-    group_by(country) %>%
-    summarize(total_co2 = sum(co2_emmission)) %>%
-    ggplot(aes(x = country, y = total_co2)) +
-    geom_point() +
-    ggtitle("Carbon Dioxide Emission of Each Country") +
-    coord_flip() 
-
-```
-
-
-
-QUESTION 4:How much co2 does the U.S. create in total each year? How much is created by each food group?
+# QUESTION 3:How much co2 does the U.S. create in total each year? How much is created by each food group?
 
 According to the data below, the United States creates 1718.86 kg/person/year of Carbon Dioxide through our food. Ethiopia has one of the lowest carbon footprints in this data, at about 241.92 kg/person/year, and that is because the country consumes many more plants than they do animals. 
 
@@ -78,14 +71,13 @@ TOTAL U.S C02 EMISSION
 ```{r}
 dt <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv'))
 
-
 dt %>%
     group_by(country) %>%
     summarize(total_co2 = sum(co2_emmission)) 
-    
 ```
 
 
 
 **CONCLUSION**
 
+To conclude this post, from what I have found that producing vegetables is better for the environment than producing animal products. Therefore, it is better for the envionment to eat more non-animal versus animal products. It is also much better for human health to consume more vegetables. So, this makes the most sense in all aspects. 

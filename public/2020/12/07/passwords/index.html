@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">4 min read</span>
+    <span class="article-duration">5 min read</span>
     
 
     <h1 class="article-title">Passwords</h1>
@@ -78,7 +78,8 @@
 
 
 <p><strong>Dataset 1: Password Strength</strong></p>
-<p>For this project, I am looking at a dataset that analyzes different passwords and their strengths. I got this data from TidyTuesday on Github. The passwords are grouped into 10 different categories. The data looks at how long each password took to crack and the unit of time associated with it. The data also looks at how long each password took to crack offline in seconds. The authors of the data also included the rank of the popularity of each password in their database. I thought this was really interesting to see what kinds of passwords other people are using.</p>
+<p>For this project, I am looking at a dataset that analyzes different passwords and their strengths. I got this data from TidyTuesday on Github. The passwords are grouped into 10 different categories. The data looks at how long each password took to crack and the unit of time associated with it. The data also looks at how long each password took to crack offline in seconds. The authors of the data also included the rank of the popularity of each password in their database.</p>
+<p>I thought this was really interesting to see what kinds of passwords other people are using. I have never been one to come up with good passwords. I’ve been using the same one since I was about eight years old. Apple has started to suggest passwords to users of their products. Usually the passwords are mixtures of numbers and letters. I wonder if passwords like this are truly being used a lot and if they are actually secure. The “simple-alphanumeric” category is the closest match to this type of password.</p>
 <p><strong>DATA</strong></p>
 <pre class="r"><code>passwords &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv&#39;)</code></pre>
 <pre><code>## Parsed with column specification:
@@ -93,25 +94,13 @@
 ##   strength = col_double(),
 ##   font_size = col_double()
 ## )</code></pre>
-<pre class="r"><code>passwords</code></pre>
-<pre><code>## # A tibble: 507 x 9
-##     rank password category value time_unit offline_crack_s… rank_alt strength
-##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-##  1     1 password passwor…  6.91 years          2.17               1        8
-##  2     2 123456   simple-… 18.5  minutes        0.0000111          2        4
-##  3     3 12345678 simple-…  1.29 days           0.00111            3        4
-##  4     4 1234     simple-… 11.1  seconds        0.000000111        4        4
-##  5     5 qwerty   simple-…  3.72 days           0.00321            5        8
-##  6     6 12345    simple-…  1.85 minutes        0.00000111         6        4
-##  7     7 dragon   animal    3.72 days           0.00321            7        8
-##  8     8 baseball sport     6.91 years          2.17               8        4
-##  9     9 football sport     6.91 years          2.17               9        7
-## 10    10 letmein  passwor…  3.19 months         0.0835            10        8
-## # … with 497 more rows, and 1 more variable: font_size &lt;dbl&gt;</code></pre>
+<pre class="r"><code>suppressMessages(library(ggplot2))
+suppressMessages(library(dplyr))</code></pre>
 <p><strong>KEY</strong></p>
-<p>QUESTION 1: Which category had the highest average strength?</p>
-<p>CATEGORY v.s. AVERAGE STRENGTH</p>
-<p>First, I wanted to look at how the category of password compared to the password strength. It is important for me to note that the password “strength” is relative and based off of the author’s comparison and analysis of other “bad” passwords. It is a 1-10 scale with 10 being the highest and 1 being the lowest. Nonetheless, I thought it would be interesting to see how each category did in terms of password strength.</p>
+<div id="question-1-how-does-the-strength-vary-with-each-category" class="section level1">
+<h1>QUESTION 1: How does the strength vary with each category?</h1>
+<p>First, I wanted to look at how the category of password compared to the password strength. It is important for me to note that the password “strength” is relative and based off of the author’s comparison and analysis of other “bad” passwords. It is a 1-10 scale with 10 being the highest and 1 being the lowest. Nonetheless, I thought it would be interesting to see how each category did in terms of password strength. The “simple-alphanumeric” and “food” categories did the worst on strength. There were quite a few categories that had the same median strengths. “simple-alphanumeric” had the largest range of strengths. It seems that “nerdy-pop” did the best on strength when you look at both the median and how small the range is.</p>
+<p>CATEGORY v.s. STRENGTH</p>
 <pre class="r"><code>df &lt;- data.frame(readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv&#39;))</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
@@ -125,28 +114,19 @@
 ##   strength = col_double(),
 ##   font_size = col_double()
 ## )</code></pre>
-<pre class="r"><code>library(ggplot2)
-library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
 <pre class="r"><code>df %&gt;%
     group_by(category) %&gt;%
-    summarize(mean_strength = mean(strength)) %&gt;%
-    ggplot(aes(x = category, y = mean_strength)) +
-    geom_point() +
-    ggtitle(&quot;Average Strengths of Each Passsword Category&quot;) +
+    ggplot(aes(x = category, y = strength)) +
+    geom_boxplot() +
+    ggtitle(&quot;Strengths of Each Passsword Category&quot;) +
     coord_flip()</code></pre>
-<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
-<p><img src="/post/Passwords_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>QUESTION 2: How does the strength correlate with how long it took to crack offline?</p>
+<pre><code>## Warning: Removed 7 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="/post/Passwords_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="question-2-how-does-the-strength-correlate-with-how-long-it-took-to-crack-offline" class="section level1">
+<h1>QUESTION 2: How does the strength correlate with how long it took to crack offline?</h1>
+<p>I wanted to look at how the strength compared to how long it took them to crack the password offline. I kind of figured that the two would correlate, but I thought it might be interesting to see how it looked in graph form. From what I can tell the two definitely correlate at least a little bit. It looks like it took longer for the passwords to be cracked as the strength level went up.</p>
 <p>PASSWORD STRENGTH v.s. HOW LONG IT TOOK TO CRACK OFFLINE IN SECONDS</p>
-<p>I wanted to look at how the strength compared to how long it took them to crack the password offline. I kind of figured that the two would correlate, but I thought it might be interesting to see how it looked in graph form.</p>
 <pre class="r"><code>df &lt;- data.frame(readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv&#39;))</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
@@ -175,14 +155,15 @@ library(dplyr)</code></pre>
 ## 4        4         8
 ## 5        8        11
 ## 6        4         8</code></pre>
-<pre class="r"><code>library(ggplot2)
-
- ggplot(data=df, aes(x=strength, y=offline_crack_sec, group=1)) +
-   geom_point() +
+<pre class="r"><code>ggplot(data=df, aes(x=strength, y=offline_crack_sec, group=1)) +
+   geom_hex() +
    ggtitle(&quot;How Long Did it Take to Crack Passwords Based on Rank&quot;)</code></pre>
-<pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
-<p><img src="/post/Passwords_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>QUESTION 3: Which category had the highest average rank?</p>
+<pre><code>## Warning: Removed 7 rows containing non-finite values (stat_binhex).</code></pre>
+<p><img src="/post/Passwords_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="question-3-which-category-had-the-highest-average-rank" class="section level1">
+<h1>QUESTION 3: Which category had the highest average rank?</h1>
+<p>This analysis closely coordinates with my first question about the categories and their strengths. Just as I found in my first graph, the “nerdy-pop” category was the highest. It had the highest strength, so it would make sense that it would also have the highest average rank. The “password-related” category was the lowest ranked by a lot. I was kind of surprised by this given that it didn’t do bad on strength. Both the “simple-alphanumeric” and the “food” categories had very similar average ranks. This makes sense, but it is strange that they were so much higher than I expected given what I found in the first graph. It seems that the more individualized passwords would do the best.</p>
 <p>CATEGORY v.s. AVERAGE RANK</p>
 <pre class="r"><code>df &lt;- data.frame(readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv&#39;))</code></pre>
 <pre><code>## Parsed with column specification:
@@ -197,9 +178,7 @@ library(dplyr)</code></pre>
 ##   strength = col_double(),
 ##   font_size = col_double()
 ## )</code></pre>
-<pre class="r"><code>library(ggplot2)
-
-df %&gt;%
+<pre class="r"><code>df %&gt;%
     group_by(category) %&gt;%
     summarize(mean_rank = mean(rank)) %&gt;%
     ggplot(aes(x = category, y = mean_rank)) +
@@ -207,8 +186,10 @@ df %&gt;%
     ggtitle(&quot;The Average Rank of Passwords&quot;) +
     coord_flip()</code></pre>
 <pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
-<p><img src="/post/Passwords_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="/post/Passwords_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p><strong>CONCLUSION</strong></p>
+<p>To conclude, It seems that the better passwords are the ones that are very specific to the person. It is harder to guess the name of someone’s first pet than it is to guess someone’s password that is the word “password”. On the other hand, a random mixture of numbers or a mixture of numbers and letters would be strong because there are so many combinations. In my experience it is hard to remember passwords like this because they are so random. I would suggest staying away from passwords such as “123” or the aforementioned “password”.</p>
+</div>
 
     </div>
   </article>

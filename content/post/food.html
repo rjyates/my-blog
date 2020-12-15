@@ -7,8 +7,12 @@ title: Carbon Footprint of Food Groups
 <script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 
+<pre class="r"><code>suppressMessages(library(ggplot2))
+suppressMessages(library(dplyr))</code></pre>
 <p><strong>DATASET 2: C02 EMISSION OF DIFFERENT FOOD TYPES</strong></p>
 <p>For this project, I am looking at the carbon footprints of different categories of food. In this data set there are 11 different types of food looked at from 130 different countries. The rate of consumption by kg/person/year is also included in the data. The co2 emissions are measured in kg/person/year as well.</p>
+<p>I have been passionate about the effects of the food industry for many years now. I was vegan for a year and I still continue to follow a plant-based diet. The meat and diary industries specifically create high amounts of greenhouse gases and contribute to our ever-growing pollution levels. The Earth is slowly heating up.</p>
+<p>I have always heard that if everyone were to commit to having one plant-based meal every week we could make a significant dent in the damage we have already done. These gases contribute to many of our Earth’s growing list of problems such as global warming. The price of efficiency in order to meet the food needs of the worlds population, and make it cheaper for producers is becoming borderline detrimental. In this project, I will be looking at data that shows just how much carbon dioxide is created by which food groups to back up my theory that eating a plant based diet is better for the environment.</p>
 <p><strong>DATA</strong></p>
 <pre class="r"><code>food_consumption &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv&#39;)</code></pre>
 <pre><code>## Parsed with column specification:
@@ -18,24 +22,12 @@ title: Carbon Footprint of Food Groups
 ##   consumption = col_double(),
 ##   co2_emmission = col_double()
 ## )</code></pre>
-<pre class="r"><code>food_consumption</code></pre>
-<pre><code>## # A tibble: 1,430 x 4
-##    country   food_category            consumption co2_emmission
-##    &lt;chr&gt;     &lt;chr&gt;                          &lt;dbl&gt;         &lt;dbl&gt;
-##  1 Argentina Pork                           10.5          37.2 
-##  2 Argentina Poultry                        38.7          41.5 
-##  3 Argentina Beef                           55.5        1712   
-##  4 Argentina Lamb &amp; Goat                     1.56         54.6 
-##  5 Argentina Fish                            4.36          6.96
-##  6 Argentina Eggs                           11.4          10.5 
-##  7 Argentina Milk - inc. cheese            195.          278.  
-##  8 Argentina Wheat and Wheat Products      103.           19.7 
-##  9 Argentina Rice                            8.77         11.2 
-## 10 Argentina Soybeans                        0             0   
-## # … with 1,420 more rows</code></pre>
+<pre class="r"><code>suppressMessages(library(ggplot2))
+suppressMessages(library(dplyr))</code></pre>
 <p><strong>KEY</strong></p>
-<p>QUESTION 1: What is the average carbon dioxide emission for each food group? Which food groups were the highest?</p>
-<p>I have always been told that animal products have the highest carbon footprint of anything that humans eat. The data below show this to be true. Beef had the highest carbon emission at almost 400 kg/person/year. Dairy products also had very high CO2 emissions at almost 200 kg/person/year.</p>
+<div id="question-1-what-is-the-average-carbon-dioxide-emission-for-each-food-group-which-food-groups-were-the-highest" class="section level1">
+<h1>QUESTION 1: What is the average carbon dioxide emission for each food group? Which food groups were the highest?</h1>
+<p>I have always been told that animal products have the highest carbon footprint of anything that humans eat. The data below show this to be true. Beef created the most co2 by far. Lamb and goat created high amounts of co2, and dairy products followed closely. Eggs and soybeans created the least amount of co2. Some animal products created relatively low amounts of co2. What I got from this, though, was that plants seem to be the better choice. This is because there would be a much lower average carbon footprint for plants if I were to divide all of the categories into animal and non-animal foods.</p>
 <p>AVERAGE CO2 EMISSION v.s. FOOD CATEGORY</p>
 <pre class="r"><code>dt &lt;- data.frame(readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv&#39;))</code></pre>
 <pre><code>## Parsed with column specification:
@@ -45,26 +37,18 @@ title: Carbon Footprint of Food Groups
 ##   consumption = col_double(),
 ##   co2_emmission = col_double()
 ## )</code></pre>
-<pre class="r"><code>library(ggplot2)
-library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
 <pre class="r"><code>dt %&gt;%
     group_by(food_category) %&gt;%
-    summarize(mean_co2 = mean(co2_emmission)) %&gt;%
-    ggplot(aes(x = food_category, y = mean_co2)) +
-    geom_point() +
-    ggtitle(&quot;Average Carbon Footprint of Food Groups&quot;) +
+    #summarize(mean_co2 = mean(co2_emmission)) %&gt;%
+    ggplot(aes(x = food_category, y = co2_emmission)) +
+    geom_boxplot() +
+    ggtitle(&quot;Carbon Footprint of Food Groups&quot;) +
     coord_flip()</code></pre>
-<p><img src="/post/food_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>QUESTION 2: How much of each type of food is consumed per year?</p>
-<p>Dairy products were the most consumed food items.</p>
+<p><img src="/post/food_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="question-2-how-much-of-each-type-of-food-is-consumed-per-year" class="section level1">
+<h1>QUESTION 2: How much of each type of food is consumed per year?</h1>
+<p>Dairy products were the most consumed food items as you can see from the graph. Wheat products were the next most consumed food item. I was surprised to see that beef wasn’t consumed at a much higher rate than most other foods. It was actually lower than many of the food groups. Soybeans were the least consumed item, which is interesting because they also create the least amount of co2. I forget that other countries don’t eat as much beef and diary as we do in the U.S., so that is something to take into account.</p>
 <p>FOOD CATEGORY v.s. CONSUMPTION</p>
 <pre class="r"><code>df &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv&#39;)</code></pre>
 <pre><code>## Parsed with column specification:
@@ -84,34 +68,14 @@ library(dplyr)</code></pre>
 ## 4 Argentina Lamb &amp; Goat          1.56         54.6 
 ## 5 Argentina Fish                 4.36          6.96
 ## 6 Argentina Eggs                11.4          10.5</code></pre>
-<pre class="r"><code>library(ggplot2)
-
-p&lt;-ggplot(data=df, aes(x=food_category, y=consumption)) +
+<pre class="r"><code>p&lt;-ggplot(data=df, aes(x=food_category, y=consumption)) +
   geom_bar(stat=&quot;identity&quot;)
 
 p + coord_flip()</code></pre>
-<p><img src="/post/food_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>QUESTION 3:How much co2 does each country create per year?</p>
-<p>COUNTRY v.s. CO2</p>
-<pre class="r"><code>dt &lt;- data.frame(readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv&#39;))</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   country = col_character(),
-##   food_category = col_character(),
-##   consumption = col_double(),
-##   co2_emmission = col_double()
-## )</code></pre>
-<pre class="r"><code>library(ggplot2)
-
-dt %&gt;%
-    group_by(country) %&gt;%
-    summarize(total_co2 = sum(co2_emmission)) %&gt;%
-    ggplot(aes(x = country, y = total_co2)) +
-    geom_point() +
-    ggtitle(&quot;Carbon Dioxide Emission of Each Country&quot;) +
-    coord_flip() </code></pre>
-<p><img src="/post/food_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>QUESTION 4:How much co2 does the U.S. create in total each year? How much is created by each food group?</p>
+<p><img src="/post/food_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="question-3how-much-co2-does-the-u.s.-create-in-total-each-year-how-much-is-created-by-each-food-group" class="section level1">
+<h1>QUESTION 3:How much co2 does the U.S. create in total each year? How much is created by each food group?</h1>
 <p>According to the data below, the United States creates 1718.86 kg/person/year of Carbon Dioxide through our food. Ethiopia has one of the lowest carbon footprints in this data, at about 241.92 kg/person/year, and that is because the country consumes many more plants than they do animals.</p>
 <p>TOTAL U.S C02 EMISSION</p>
 <pre class="r"><code>dt &lt;- data.frame(readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv&#39;))</code></pre>
@@ -140,3 +104,5 @@ dt %&gt;%
 ## 10 Barbados        889.
 ## # … with 120 more rows</code></pre>
 <p><strong>CONCLUSION</strong></p>
+<p>To conclude this post, from what I have found that producing vegetables is better for the environment than producing animal products. Therefore, it is better for the envionment to eat more non-animal versus animal products. It is also much better for human health to consume more vegetables. So, this makes the most sense in all aspects.</p>
+</div>
