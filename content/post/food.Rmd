@@ -61,7 +61,8 @@ df <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytue
 head(df)
 
 p<-ggplot(data=df, aes(x=food_category, y=consumption)) +
-  geom_bar(stat="identity")
+  geom_bar(stat="identity") +
+  ggtitle("Rate of Consumption by Category")
 
 p + coord_flip()
 ```

@@ -70,7 +70,8 @@ suppressMessages(library(dplyr))</code></pre>
 ## 5 Argentina Fish                 4.36          6.96
 ## 6 Argentina Eggs                11.4          10.5</code></pre>
 <pre class="r"><code>p&lt;-ggplot(data=df, aes(x=food_category, y=consumption)) +
-  geom_bar(stat=&quot;identity&quot;)
+  geom_bar(stat=&quot;identity&quot;) +
+  ggtitle(&quot;Rate of Consumption by Category&quot;)
 
 p + coord_flip()</code></pre>
 <p><img src="/post/food_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
