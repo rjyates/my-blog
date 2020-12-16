@@ -61,7 +61,7 @@ df <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytue
 head(df)
 
 p<-ggplot(data=df, aes(x=food_category, y=consumption)) +
-  geom_bar(stat="identity") +
+  geom_boxplot() +
   ggtitle("Rate of Consumption by Category")
 
 p + coord_flip()
@@ -71,11 +71,11 @@ p + coord_flip()
 
 According to the data below, the United States creates 1718.86 kg/person/year of Carbon Dioxide through our food. Ethiopia has one of the lowest carbon footprints in this data, at about 241.92 kg/person/year, and that is because the country consumes many more plants than they do animals. The U.S. consumes lots of dairy products, which I completely expected. We also create lots of carbon dioxide through the production of beef. The numbers are incredibly high in this area. As a whole, we do not consume enough vegetables. This is probably why we have one of the highest obesity rates in the world. 
 
-TOTAL U.S C02 EMISSION 
+TOTAL U.S & Ethiopia C02 EMISSION 
 ```{r}
 dt <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv'))
 
-america <- filter(dt, country == "USA") 
+america <- filter(dt, country %in% c("USA","Ethiopia")) 
 group_by(america) %>%
 group_by(country) %>%
 summarize(total_co2 = sum(co2_emmission)) 
@@ -84,28 +84,14 @@ summarize(total_co2 = sum(co2_emmission))
 ```{r}
 dt <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv'))
 
-america <- filter(dt, country == "USA") 
+america <- filter(dt, country %in% c("USA","Ethiopia")) 
 group_by(america) %>%
 group_by(country) %>%
 summarize(total_co2 = sum(co2_emmission)) %>%
-ggplot(aes(x = country, y = total_co2)) +
-    geom_point() +
-    ggtitle("USA Carbon Footprint") +
-    coord_flip()
+ggplot(aes(x = reorder(country, -total_co2), y = total_co2)) +
+    geom_bar(stat = "identity") +
+    ggtitle("USA & Ethiopia Carbon Footprints") 
 ```
-```{r}
-dt <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv'))
-
-area <- filter(dt, country == "Ethiopia") 
-group_by(area) %>%
-group_by(country) %>%
-summarize(total_co2 = sum(co2_emmission)) %>%
-ggplot(aes(x = country, y = total_co2)) +
-    geom_point() +
-    ggtitle("Ethiopia Carbon Footprint") +
-    coord_flip()
-```
-
 
 ```{r}
 dt <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv'))
