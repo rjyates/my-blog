@@ -79,7 +79,7 @@
 
 <p><strong>DATASET 2: C02 EMISSION OF DIFFERENT FOOD TYPES</strong></p>
 <p>For this project, I am looking at the carbon footprints of different categories of food. In this data set there are 11 different types of food looked at from 130 different countries. The rate of consumption by kg/person/year is also included in the data. The co2 emissions are measured in kg/person/year as well.</p>
-<p>I have been passionate about the effects of the food industry for many years now. I was vegan for a year and I still continue to follow a plant-based diet. The meat and diary industries specifically create high amounts of greenhouse gases and contribute to our ever-growing pollution levels. The Earth is slowly heating up.</p>
+<p>I have been passionate about the effects of the food industry for many years now. I was vegetarian for a year and I still continue to try to follow a plant-based diet. The meat and diary industries specifically create high amounts of greenhouse gases and contribute to our ever-growing pollution levels. The Earth is slowly heating up.</p>
 <p>I have always heard that if everyone were to commit to having one plant-based meal every week we could make a significant dent in the damage we have already done. These gases contribute to many of our Earth’s growing list of problems such as global warming. The price of efficiency in order to meet the food needs of the worlds population, and make it cheaper for producers is becoming borderline detrimental. In this project, I will be looking at data that shows just how much carbon dioxide is created by which food groups to back up my theory that eating a plant based diet is better for the environment.</p>
 <p><strong>DATA</strong></p>
 <pre class="r"><code>food_consumption &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv&#39;)</code></pre>
@@ -143,7 +143,7 @@ p + coord_flip()</code></pre>
 </div>
 <div id="question-3how-much-co2-does-the-u.s.-create-in-total-each-year-how-much-is-created-by-each-food-group" class="section level1">
 <h1>QUESTION 3:How much co2 does the U.S. create in total each year? How much is created by each food group?</h1>
-<p>According to the data below, the United States creates 1718.86 kg/person/year of Carbon Dioxide through our food. Ethiopia has one of the lowest carbon footprints in this data, at about 241.92 kg/person/year, and that is because the country consumes many more plants than they do animals.</p>
+<p>According to the data below, the United States creates 1718.86 kg/person/year of Carbon Dioxide through our food. Ethiopia has one of the lowest carbon footprints in this data, at about 241.92 kg/person/year, and that is because the country consumes many more plants than they do animals. The U.S. consumes lots of dairy products which I completely expected. We also create lots of carbon dioxide through the production of beef. The numbers are incredibly high in this area. As a whole, we do not consume enough vegetables. This is probably why we have one of the highest obesity rates in the world.</p>
 <p>TOTAL U.S C02 EMISSION</p>
 <pre class="r"><code>dt &lt;- data.frame(readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv&#39;))</code></pre>
 <pre><code>## Parsed with column specification:
@@ -186,6 +186,23 @@ ggplot(aes(x = country, y = total_co2)) +
 ##   consumption = col_double(),
 ##   co2_emmission = col_double()
 ## )</code></pre>
+<pre class="r"><code>area &lt;- filter(dt, country == &quot;Ethiopia&quot;) 
+group_by(area) %&gt;%
+group_by(country) %&gt;%
+summarize(total_co2 = sum(co2_emmission)) %&gt;%
+ggplot(aes(x = country, y = total_co2)) +
+    geom_point() +
+    ggtitle(&quot;Ethiopia Carbon Footprint&quot;) +
+    coord_flip()</code></pre>
+<p><img src="/post/food_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>dt &lt;- data.frame(readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv&#39;))</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   country = col_character(),
+##   food_category = col_character(),
+##   consumption = col_double(),
+##   co2_emmission = col_double()
+## )</code></pre>
 <pre class="r"><code>america &lt;- filter(dt, country == &quot;USA&quot;) 
 group_by(america) %&gt;%
 group_by(food_category) %&gt;%
@@ -193,9 +210,9 @@ ggplot(aes(x = food_category, y = co2_emmission)) +
     geom_point() +
     ggtitle(&quot;USA Carbon Footprint By Category&quot;) +
     coord_flip()</code></pre>
-<p><img src="/post/food_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="/post/food_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p><strong>CONCLUSION</strong></p>
-<p>To conclude this post, from what I have found that producing vegetables is better for the environment than producing animal products. Therefore, it is better for the envionment to eat more non-animal versus animal products. It is also much better for human health to consume more vegetables. So, this makes the most sense in all aspects.</p>
+<p>To conclude this post, from what I have found that producing vegetables is better for the environment than producing animal products. Therefore, it is better for the environment to eat more non-animal versus animal products. It is also much better for human health to consume more vegetables. So, this makes the most sense in all aspects.</p>
 </div>
 
     </div>

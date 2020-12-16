@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 For this project, I am looking at the carbon footprints of different categories of food. In this data set there are 11 different types of food looked at from 130 different countries. The rate of consumption by kg/person/year is also included in the data. The co2 emissions are measured in kg/person/year as well. 
 
-I have been passionate about the effects of the food industry for many years now. I was vegan for a year and I still continue to follow a plant-based diet. The meat and diary industries specifically create high amounts of greenhouse gases and contribute to our ever-growing pollution levels. The Earth is slowly heating up. 
+I have been passionate about the effects of the food industry for many years now. I was vegetarian for a year and I still continue to try to follow a plant-based diet. The meat and diary industries specifically create high amounts of greenhouse gases and contribute to our ever-growing pollution levels. The Earth is slowly heating up. 
 
 I have always heard that if everyone were to commit to having one plant-based meal every week we could make a significant dent in the damage we have already done. These gases contribute to many of our Earth's growing list of problems such as global warming. The price of efficiency in order to meet the food needs of the worlds population, and make it cheaper for producers is becoming borderline detrimental. In this project, I will be looking at data that shows just how much carbon dioxide is created by which food groups to back up my theory that eating a plant based diet is better for the environment. 
 
@@ -60,7 +60,7 @@ p + coord_flip()
 
 # QUESTION 3:How much co2 does the U.S. create in total each year? How much is created by each food group?
 
-According to the data below, the United States creates 1718.86 kg/person/year of Carbon Dioxide through our food. Ethiopia has one of the lowest carbon footprints in this data, at about 241.92 kg/person/year, and that is because the country consumes many more plants than they do animals. 
+According to the data below, the United States creates 1718.86 kg/person/year of Carbon Dioxide through our food. Ethiopia has one of the lowest carbon footprints in this data, at about 241.92 kg/person/year, and that is because the country consumes many more plants than they do animals. The U.S. consumes lots of dairy products which I completely expected. We also create lots of carbon dioxide through the production of beef. The numbers are incredibly high in this area. As a whole, we do not consume enough vegetables. This is probably why we have one of the highest obesity rates in the world. 
 
 TOTAL U.S C02 EMISSION 
 ```{r}
@@ -87,6 +87,20 @@ ggplot(aes(x = country, y = total_co2)) +
 ```{r}
 dt <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv'))
 
+area <- filter(dt, country == "Ethiopia") 
+group_by(area) %>%
+group_by(country) %>%
+summarize(total_co2 = sum(co2_emmission)) %>%
+ggplot(aes(x = country, y = total_co2)) +
+    geom_point() +
+    ggtitle("Ethiopia Carbon Footprint") +
+    coord_flip()
+```
+
+
+```{r}
+dt <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv'))
+
 america <- filter(dt, country == "USA") 
 group_by(america) %>%
 group_by(food_category) %>%
@@ -101,4 +115,4 @@ ggplot(aes(x = food_category, y = co2_emmission)) +
 
 **CONCLUSION**
 
-To conclude this post, from what I have found that producing vegetables is better for the environment than producing animal products. Therefore, it is better for the envionment to eat more non-animal versus animal products. It is also much better for human health to consume more vegetables. So, this makes the most sense in all aspects. 
+To conclude this post, from what I have found that producing vegetables is better for the environment than producing animal products. Therefore, it is better for the environment to eat more non-animal versus animal products. It is also much better for human health to consume more vegetables. So, this makes the most sense in all aspects. 
