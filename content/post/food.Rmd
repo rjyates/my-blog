@@ -37,7 +37,6 @@ dt <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascie
 
 dt %>%
     group_by(food_category) %>%
-    #summarize(mean_co2 = mean(co2_emmission)) %>%
     ggplot(aes(x = food_category, y = co2_emmission)) +
     geom_boxplot() +
     ggtitle("Carbon Footprint of Food Groups") +
@@ -67,9 +66,35 @@ TOTAL U.S C02 EMISSION
 ```{r}
 dt <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv'))
 
-dt %>%
-    group_by(country) %>%
-    summarize(total_co2 = sum(co2_emmission)) 
+america <- filter(dt, country == "USA") 
+group_by(america) %>%
+group_by(country) %>%
+summarize(total_co2 = sum(co2_emmission)) 
+```
+
+```{r}
+dt <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv'))
+
+america <- filter(dt, country == "USA") 
+group_by(america) %>%
+group_by(country) %>%
+summarize(total_co2 = sum(co2_emmission)) %>%
+ggplot(aes(x = country, y = total_co2)) +
+    geom_point() +
+    ggtitle("USA Carbon Footprint") +
+    coord_flip()
+```
+```{r}
+dt <- data.frame(readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv'))
+
+america <- filter(dt, country == "USA") 
+group_by(america) %>%
+group_by(food_category) %>%
+ggplot(aes(x = food_category, y = co2_emmission)) +
+    geom_point() +
+    ggtitle("USA Carbon Footprint By Category") +
+    coord_flip()
+  
 ```
 
 

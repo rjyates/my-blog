@@ -107,7 +107,6 @@ suppressMessages(library(dplyr))</code></pre>
 ## )</code></pre>
 <pre class="r"><code>dt %&gt;%
     group_by(food_category) %&gt;%
-    #summarize(mean_co2 = mean(co2_emmission)) %&gt;%
     ggplot(aes(x = food_category, y = co2_emmission)) +
     geom_boxplot() +
     ggtitle(&quot;Carbon Footprint of Food Groups&quot;) +
@@ -154,23 +153,47 @@ p + coord_flip()</code></pre>
 ##   consumption = col_double(),
 ##   co2_emmission = col_double()
 ## )</code></pre>
-<pre class="r"><code>dt %&gt;%
-    group_by(country) %&gt;%
-    summarize(total_co2 = sum(co2_emmission)) </code></pre>
-<pre><code>## # A tibble: 130 x 2
-##    country    total_co2
-##    &lt;chr&gt;          &lt;dbl&gt;
-##  1 Albania        1778.
-##  2 Algeria         708.
-##  3 Angola          413.
-##  4 Argentina      2172.
-##  5 Armenia        1110.
-##  6 Australia      1939.
-##  7 Austria        1211.
-##  8 Bahamas        1193.
-##  9 Bangladesh      374.
-## 10 Barbados        889.
-## # … with 120 more rows</code></pre>
+<pre class="r"><code>america &lt;- filter(dt, country == &quot;USA&quot;) 
+group_by(america) %&gt;%
+group_by(country) %&gt;%
+summarize(total_co2 = sum(co2_emmission)) </code></pre>
+<pre><code>## # A tibble: 1 x 2
+##   country total_co2
+##   &lt;chr&gt;       &lt;dbl&gt;
+## 1 USA         1719.</code></pre>
+<pre class="r"><code>dt &lt;- data.frame(readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv&#39;))</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   country = col_character(),
+##   food_category = col_character(),
+##   consumption = col_double(),
+##   co2_emmission = col_double()
+## )</code></pre>
+<pre class="r"><code>america &lt;- filter(dt, country == &quot;USA&quot;) 
+group_by(america) %&gt;%
+group_by(country) %&gt;%
+summarize(total_co2 = sum(co2_emmission)) %&gt;%
+ggplot(aes(x = country, y = total_co2)) +
+    geom_point() +
+    ggtitle(&quot;USA Carbon Footprint&quot;) +
+    coord_flip()</code></pre>
+<p><img src="/post/food_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>dt &lt;- data.frame(readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv&#39;))</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   country = col_character(),
+##   food_category = col_character(),
+##   consumption = col_double(),
+##   co2_emmission = col_double()
+## )</code></pre>
+<pre class="r"><code>america &lt;- filter(dt, country == &quot;USA&quot;) 
+group_by(america) %&gt;%
+group_by(food_category) %&gt;%
+ggplot(aes(x = food_category, y = co2_emmission)) +
+    geom_point() +
+    ggtitle(&quot;USA Carbon Footprint By Category&quot;) +
+    coord_flip()</code></pre>
+<p><img src="/post/food_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p><strong>CONCLUSION</strong></p>
 <p>To conclude this post, from what I have found that producing vegetables is better for the environment than producing animal products. Therefore, it is better for the envionment to eat more non-animal versus animal products. It is also much better for human health to consume more vegetables. So, this makes the most sense in all aspects.</p>
 </div>
